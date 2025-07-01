@@ -1,11 +1,9 @@
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
-import { ThemeProvider } from '@mui/material/styles';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import CssBaseline from '@mui/material/CssBaseline';
 
-import theme from './theme/theme';
+import { ThemeProvider } from './contexts/ThemeContext';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { TripProvider } from './contexts/TripContext';
 import { AIProvider } from './contexts/AIContext';
@@ -84,8 +82,7 @@ const AppContent = () => {
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <CssBaseline />
+    <ThemeProvider>
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <AuthProvider>
           <TripProvider>
