@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" fill="#d32f2f" rx="4"/>
+  <g fill="white">
+    <!-- Airplane body -->
+    <rect x="14" y="8" width="4" height="12" rx="2"/>
+    <!-- Wings -->
+    <rect x="6" y="12" width="20" height="3" rx="1"/>
+    <!-- Tail -->
+    <rect x="12" y="6" width="8" height="2" rx="1"/>
+    <!-- Nose -->
+    <circle cx="16" cy="7" r="2"/>
+  </g>
+</svg> 

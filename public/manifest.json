@@ -1,0 +1,17 @@
+{
+  "short_name": "Triply",
+  "name": "Triply - Business Trip Companion",
+  "description": "Your ultimate business trip companion for managing companies, contacts, and travel itineraries",
+  "icons": [
+    {
+      "src": "favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "#d32f2f",
+  "background_color": "#f8fafc",
+  "categories": ["business", "productivity", "travel"]
+} 
