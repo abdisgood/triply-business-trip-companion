@@ -14,6 +14,10 @@ import LoadingScreen from './components/Layout/LoadingScreen';
 import Navbar from './components/Layout/Navbar';
 import TripDashboard from './components/TripDashboard';
 import CompanyList from './components/CompanyList';
+import ProfilePage from './components/Profile/ProfilePage';
+import SettingsPage from './components/Settings/SettingsPage';
+import ExpensesPage from './components/Expenses/ExpensesPage';
+import HelpPage from './components/Help/HelpPage';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -70,6 +74,42 @@ const AppContent = () => {
             <ProtectedRoute>
               <Navbar />
               <CompanyList />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/profile" 
+          element={
+            <ProtectedRoute>
+              <Navbar />
+              <ProfilePage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/settings" 
+          element={
+            <ProtectedRoute>
+              <Navbar />
+              <SettingsPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/expenses" 
+          element={
+            <ProtectedRoute>
+              <Navbar />
+              <ExpensesPage />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/help" 
+          element={
+            <ProtectedRoute>
+              <Navbar />
+              <HelpPage />
             </ProtectedRoute>
           } 
         />
