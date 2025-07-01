@@ -301,6 +301,8 @@ const CompanyDetail = ({ open, onClose, company, onEdit }) => {
                             </ListItemIcon>
                             <ListItemText
                               primary={contact.name}
+                              primaryTypographyProps={{ component: 'div' }}
+                              secondaryTypographyProps={{ component: 'div' }}
                               secondary={
                                 <Box>
                                   {contact.position && (
@@ -393,6 +395,8 @@ const CompanyDetail = ({ open, onClose, company, onEdit }) => {
                             </ListItemIcon>
                             <ListItemText
                               primary={action.type?.toUpperCase()}
+                              primaryTypographyProps={{ component: 'div' }}
+                              secondaryTypographyProps={{ component: 'div' }}
                               secondary={
                                 <Box>
                                   <Typography variant="body2">

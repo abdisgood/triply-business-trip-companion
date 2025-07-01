@@ -114,6 +114,8 @@ const TripCard = ({ trip, onSelect, isSelected = false }) => {
                 />
               </Box>
             }
+            primaryTypographyProps={{ component: 'div' }}
+            secondaryTypographyProps={{ component: 'div' }}
             secondary={
               <Box>
                 <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>

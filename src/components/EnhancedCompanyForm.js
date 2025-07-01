@@ -636,6 +636,8 @@ const EnhancedCompanyForm = ({ open, onClose, onSubmit, company = null, existing
                       <ListItem key={contact.id} divider>
                         <ListItemText
                           primary={contact.name}
+                          primaryTypographyProps={{ component: 'div' }}
+                          secondaryTypographyProps={{ component: 'div' }}
                           secondary={
                             <Box>
                               {contact.position && <Typography variant="body2">{contact.position}</Typography>}
@@ -723,6 +725,8 @@ const EnhancedCompanyForm = ({ open, onClose, onSubmit, company = null, existing
                       <ListItem key={action.id} divider>
                         <ListItemText
                           primary={actionTypes.find(t => t.value === action.type)?.label}
+                          primaryTypographyProps={{ component: 'div' }}
+                          secondaryTypographyProps={{ component: 'div' }}
                           secondary={
                             <Box>
                               <Typography variant="body2">{action.description}</Typography>
