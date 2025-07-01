@@ -1,17 +1,34 @@
 {
   "short_name": "Triply",
   "name": "Triply - Business Trip Companion",
-  "description": "Your ultimate business trip companion for managing companies, contacts, and travel itineraries",
+  "description": "Your ultimate business trip companion for managing companies, contacts, and travel itineraries with AI-powered features",
   "icons": [
     {
       "src": "favicon.svg",
       "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "favicon-16x16.svg",
+      "sizes": "16x16",
       "type": "image/svg+xml"
+    },
+    {
+      "src": "favicon-32x32.svg",
+      "sizes": "32x32",
+      "type": "image/svg+xml"
+    },
+    {
+      "src": "apple-touch-icon.svg",
+      "sizes": "180x180",
+      "type": "image/svg+xml",
+      "purpose": "apple-touch-icon"
     }
   ],
   "start_url": ".",
   "display": "standalone",
-  "theme_color": "#d32f2f",
+  "theme_color": "#1976d2",
   "background_color": "#f8fafc",
   "categories": ["business", "productivity", "travel"]
 } 

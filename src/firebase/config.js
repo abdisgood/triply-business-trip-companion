@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
 import { getFirestore } from "firebase/firestore";
 import { getAnalytics } from "firebase/analytics";
+import { getStorage } from "firebase/storage";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -20,5 +21,8 @@ export const db = getFirestore(app);
 
 // Initialize Analytics
 export const analytics = getAnalytics(app);
+
+// Initialize Storage
+export const storage = getStorage(app);
 
 export default app; 

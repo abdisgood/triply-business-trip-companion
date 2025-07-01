@@ -7,9 +7,12 @@ import CssBaseline from '@mui/material/CssBaseline';
 
 import theme from './theme/theme';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
+import { TripProvider } from './contexts/TripContext';
+import { AIProvider } from './contexts/AIContext';
 import LoginPage from './components/Auth/LoginPage';
 import LoadingScreen from './components/Layout/LoadingScreen';
 import Navbar from './components/Layout/Navbar';
+import TripDashboard from './components/TripDashboard';
 import CompanyList from './components/CompanyList';
 
 // Protected Route component
@@ -57,6 +60,15 @@ const AppContent = () => {
           element={
             <ProtectedRoute>
               <Navbar />
+              <TripDashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/companies" 
+          element={
+            <ProtectedRoute>
+              <Navbar />
               <CompanyList />
             </ProtectedRoute>
           } 
@@ -76,7 +88,11 @@ function App() {
       <CssBaseline />
       <LocalizationProvider dateAdapter={AdapterDayjs}>
         <AuthProvider>
-          <AppContent />
+          <TripProvider>
+            <AIProvider>
+              <AppContent />
+            </AIProvider>
+          </TripProvider>
         </AuthProvider>
       </LocalizationProvider>
     </ThemeProvider>

@@ -1,0 +1,21 @@
+<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1976d2"/>
+      <stop offset="100%" style="stop-color:#0d47a1"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Background -->
+  <circle cx="8" cy="8" r="8" fill="url(#bg)"/>
+  
+  <!-- Simplified airplane -->
+  <path d="M4 8 L12 8 L13 7 L13 9 L12 8 L10 10 L9 9 L11 7 L4 8 Z" fill="white"/>
+  
+  <!-- Small route indicator -->
+  <circle cx="3" cy="3" r="1" fill="#4caf50"/>
+  <circle cx="13" cy="13" r="1" fill="#ffc107"/>
+  
+  <!-- Dotted route -->
+  <path d="M3 3 Q8 1 13 13" stroke="#4caf50" stroke-width="0.5" fill="none" stroke-dasharray="1,1"/>
+</svg> 
