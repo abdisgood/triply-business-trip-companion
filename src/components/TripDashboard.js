@@ -141,30 +141,31 @@ const TripDashboard = () => {
               backgroundColor: credits.available > 10 ? 'primary.main' : 'warning.main', 
               color: 'white',
               cursor: 'pointer',
+              transition: 'all 0.2s ease',
               '&:hover': {
                 backgroundColor: credits.available > 10 ? 'primary.dark' : 'warning.dark',
+                transform: 'translateY(-2px)',
+                boxShadow: 3
+              },
+              '&:active': {
+                transform: 'translateY(0)'
               }
             }}
             onClick={() => setCreditPurchaseOpen(true)}
           >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <AIIcon />
-              <Typography variant="body2">
+              <Typography variant="body2" sx={{ fontWeight: 500 }}>
                 {credits.available} AI Credits
               </Typography>
-              <Button 
-                size="small" 
-                variant="contained" 
-                sx={{ 
-                  ml: 1, 
-                  backgroundColor: 'rgba(255,255,255,0.2)',
-                  '&:hover': {
-                    backgroundColor: 'rgba(255,255,255,0.3)',
-                  }
-                }}
-              >
+              <Typography variant="caption" sx={{ 
+                ml: 1, 
+                opacity: 0.9,
+                borderLeft: '1px solid rgba(255,255,255,0.3)',
+                pl: 1
+              }}>
                 Buy More
-              </Button>
+              </Typography>
             </Box>
           </Card>
 
