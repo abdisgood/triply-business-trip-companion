@@ -47,6 +47,7 @@ import CreateTripDialog from './CreateTripDialog';
 import ExpenseOverview from './ExpenseOverview';
 import TripCard from './TripCard';
 import InvitationNotifications from './InvitationNotifications';
+import CreditPurchaseDialog from './CreditPurchaseDialog';
 import { testOpenAIConnection } from '../services/testOpenAI';
 
 const TripDashboard = () => {
@@ -61,6 +62,7 @@ const TripDashboard = () => {
   const { credits, processing } = useAI();
   
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [creditPurchaseDialogOpen, setCreditPurchaseDialogOpen] = useState(false);
   const [notificationMenuAnchor, setNotificationMenuAnchor] = useState(null);
   const [selectedTripId, setSelectedTripId] = useState(null);
   const [testResult, setTestResult] = useState(null);
@@ -127,7 +129,21 @@ const TripDashboard = () => {
         
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {/* AI Credits Display */}
-          <Card sx={{ px: 2, py: 1, backgroundColor: 'primary.main', color: 'white' }}>
+          <Card 
+            sx={{ 
+              px: 2, 
+              py: 1, 
+              backgroundColor: 'primary.main', 
+              color: 'white',
+              cursor: 'pointer',
+              transition: 'all 0.2s',
+              '&:hover': {
+                transform: 'scale(1.05)',
+                boxShadow: 2
+              }
+            }}
+            onClick={() => setCreditPurchaseDialogOpen(true)}
+          >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <AIIcon />
               <Typography variant="body2">
@@ -452,6 +468,12 @@ const TripDashboard = () => {
       >
         <InvitationNotifications onClose={handleNotificationClose} />
       </Menu>
+
+      {/* Credit Purchase Dialog */}
+      <CreditPurchaseDialog
+        open={creditPurchaseDialogOpen}
+        onClose={() => setCreditPurchaseDialogOpen(false)}
+      />
     </Box>
   );
 };
