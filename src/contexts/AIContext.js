@@ -85,6 +85,18 @@ const aiReducer = (state, action) => {
         }
       };
 
+    case 'ADD_NOTIFICATION':
+      return {
+        ...state,
+        notifications: [...(state.notifications || []), action.payload]
+      };
+
+    case 'REMOVE_NOTIFICATION':
+      return {
+        ...state,
+        notifications: (state.notifications || []).filter(n => n.id !== action.payload)
+      };
+
     default:
       return state;
   }
@@ -109,7 +121,8 @@ const initialState = {
     itinerary: false,
     ocr: false,
     analysis: false
-  }
+  },
+  notifications: []
 };
 
 export const AIProvider = ({ children }) => {
@@ -145,6 +158,24 @@ export const AIProvider = ({ children }) => {
     try {
       await paymentService.deductCredits(null, amount, operation);
       dispatch({ type: 'DEDUCT_CREDITS', payload: amount });
+      
+      // Add notification
+      const notificationId = Date.now().toString();
+      dispatch({ 
+        type: 'ADD_NOTIFICATION', 
+        payload: {
+          id: notificationId,
+          type: 'credit_deduction',
+          message: `${amount} credits used for ${operation.replace(/([A-Z])/g, ' $1').trim()}`,
+          severity: 'info',
+          timestamp: Date.now()
+        }
+      });
+      
+      // Auto-remove notification after 5 seconds
+      setTimeout(() => {
+        dispatch({ type: 'REMOVE_NOTIFICATION', payload: notificationId });
+      }, 5000);
     } catch (error) {
       console.error('Error deducting credits:', error);
       // Still update local state for better UX, but log the error

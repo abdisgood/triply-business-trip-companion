@@ -14,6 +14,7 @@ import LoadingScreen from './components/Layout/LoadingScreen';
 import Navbar from './components/Layout/Navbar';
 import TripDashboard from './components/TripDashboard';
 import CompanyList from './components/CompanyList';
+import CreditNotifications from './components/CreditNotifications';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -40,45 +41,48 @@ const PublicRoute = ({ children }) => {
 // Main App Content
 const AppContent = () => {
   return (
-    <Router
-      future={{
-        v7_startTransition: true,
-        v7_relativeSplatPath: true
-      }}
-    >
-      <Routes>
-        <Route 
-          path="/login" 
-          element={
-            <PublicRoute>
-              <LoginPage />
-            </PublicRoute>
-          } 
-        />
-        <Route 
-          path="/dashboard" 
-          element={
-            <ProtectedRoute>
-              <Navbar />
-              <TripDashboard />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/companies" 
-          element={
-            <ProtectedRoute>
-              <Navbar />
-              <CompanyList />
-            </ProtectedRoute>
-          } 
-        />
-        <Route 
-          path="/" 
-          element={<Navigate to="/dashboard" replace />} 
-        />
-      </Routes>
-    </Router>
+    <>
+      <CreditNotifications />
+      <Router
+        future={{
+          v7_startTransition: true,
+          v7_relativeSplatPath: true
+        }}
+      >
+        <Routes>
+          <Route 
+            path="/login" 
+            element={
+              <PublicRoute>
+                <LoginPage />
+              </PublicRoute>
+            } 
+          />
+          <Route 
+            path="/dashboard" 
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <TripDashboard />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/companies" 
+            element={
+              <ProtectedRoute>
+                <Navbar />
+                <CompanyList />
+              </ProtectedRoute>
+            } 
+          />
+          <Route 
+            path="/" 
+            element={<Navigate to="/dashboard" replace />} 
+          />
+        </Routes>
+      </Router>
+    </>
   );
 };
 

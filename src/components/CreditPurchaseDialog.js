@@ -247,22 +247,43 @@ const CreditPurchaseDialog = ({ open, onClose }) => {
             {/* PayPal Integration */}
             <PayPalScriptProvider 
               options={{ 
-                "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID || "test", // You'll need to add this
-                currency: "USD" 
+                "client-id": process.env.REACT_APP_PAYPAL_CLIENT_ID || "test",
+                currency: "USD",
+                intent: "capture"
               }}
             >
-              <PayPalButtons
-                style={{ 
-                  layout: "vertical",
-                  color: "blue",
-                  shape: "rect",
-                  label: "paypal"
-                }}
-                createOrder={handlePayPalCreateOrder}
-                onApprove={handlePayPalApprove}
-                onError={handlePayPalError}
-                disabled={processing}
-              />
+              {process.env.REACT_APP_PAYPAL_CLIENT_ID ? (
+                <PayPalButtons
+                  style={{ 
+                    layout: "vertical",
+                    color: "blue",
+                    shape: "rect",
+                    label: "paypal"
+                  }}
+                  createOrder={handlePayPalCreateOrder}
+                  onApprove={handlePayPalApprove}
+                  onError={handlePayPalError}
+                  disabled={processing}
+                />
+              ) : (
+                <Alert severity="warning" sx={{ mt: 2 }}>
+                  <Typography variant="body2">
+                    PayPal integration is not configured. Please add REACT_APP_PAYPAL_CLIENT_ID to your environment variables.
+                  </Typography>
+                  <Typography variant="caption" display="block" sx={{ mt: 1 }}>
+                    For testing, you can use the PayPal Sandbox. Visit{' '}
+                    <a 
+                      href="https://developer.paypal.com" 
+                      target="_blank" 
+                      rel="noopener noreferrer"
+                      style={{ color: 'inherit' }}
+                    >
+                      developer.paypal.com
+                    </a>
+                    {' '}to get your client ID.
+                  </Typography>
+                </Alert>
+              )}
             </PayPalScriptProvider>
 
             {processing && (

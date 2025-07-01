@@ -145,12 +145,32 @@ Detailed configuration instructions are available in [CONFIGURATION.md](./CONFIG
 The application uses a credit system for AI-powered features:
 
 - **Company Enrichment**: 5 credits per company
-- **Trip Objectives Analysis**: 7 credits per analysis
+- **Trip Objectives Analysis**: 8 credits per analysis
 - **Itinerary Planning**: 10 credits per optimization
 - **Receipt OCR**: 3 credits per receipt
 - **Expense Analysis**: 2 credits per analysis
 
-New users start with 100 credits. Additional credits can be purchased through the application.
+### Credit Management
+
+- **Free Credits**: New users start with 10 free credits
+- **Purchase Options**: 
+  - Starter Pack: 50 credits for $9.99
+  - Professional Pack: 150 credits for $24.99 (Most Popular)
+  - Enterprise Pack: 400 credits for $59.99
+  - Unlimited Monthly: 1000 credits for $99.99
+- **Payment Methods**: Secure PayPal integration
+- **Credit Tracking**: View usage history and transaction logs
+- **Low Credit Warnings**: Automatic notifications when running low
+- **Export History**: Download credit usage reports
+
+### Setting Up Credit Purchases
+
+1. Create a PayPal Developer account
+2. Get your Client ID from PayPal
+3. Add to your `.env.local`: `REACT_APP_PAYPAL_CLIENT_ID=your_client_id`
+4. Users can purchase credits by clicking on the credit display
+
+See [AI_CREDITS_SETUP.md](./AI_CREDITS_SETUP.md) for detailed configuration instructions.
 
 ## 🔒 Security & Privacy
 

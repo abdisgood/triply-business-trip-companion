@@ -48,6 +48,9 @@ import ExpenseOverview from './ExpenseOverview';
 import TripCard from './TripCard';
 import InvitationNotifications from './InvitationNotifications';
 import { testOpenAIConnection } from '../services/testOpenAI';
+import CreditPurchaseDialog from './CreditPurchaseDialog';
+import CreditHistory from './CreditHistory';
+import CreditWarning from './CreditWarning';
 
 const TripDashboard = () => {
   const { user } = useAuth();
@@ -61,6 +64,7 @@ const TripDashboard = () => {
   const { credits, processing } = useAI();
   
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
+  const [creditPurchaseOpen, setCreditPurchaseOpen] = useState(false);
   const [notificationMenuAnchor, setNotificationMenuAnchor] = useState(null);
   const [selectedTripId, setSelectedTripId] = useState(null);
   const [testResult, setTestResult] = useState(null);
@@ -114,6 +118,9 @@ const TripDashboard = () => {
 
   return (
     <Box sx={{ p: 3 }}>
+      {/* Credit Warning */}
+      <CreditWarning threshold={10} />
+      
       {/* Header */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 3 }}>
         <Box>
@@ -127,12 +134,37 @@ const TripDashboard = () => {
         
         <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
           {/* AI Credits Display */}
-          <Card sx={{ px: 2, py: 1, backgroundColor: 'primary.main', color: 'white' }}>
+          <Card 
+            sx={{ 
+              px: 2, 
+              py: 1, 
+              backgroundColor: credits.available > 10 ? 'primary.main' : 'warning.main', 
+              color: 'white',
+              cursor: 'pointer',
+              '&:hover': {
+                backgroundColor: credits.available > 10 ? 'primary.dark' : 'warning.dark',
+              }
+            }}
+            onClick={() => setCreditPurchaseOpen(true)}
+          >
             <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
               <AIIcon />
               <Typography variant="body2">
                 {credits.available} AI Credits
               </Typography>
+              <Button 
+                size="small" 
+                variant="contained" 
+                sx={{ 
+                  ml: 1, 
+                  backgroundColor: 'rgba(255,255,255,0.2)',
+                  '&:hover': {
+                    backgroundColor: 'rgba(255,255,255,0.3)',
+                  }
+                }}
+              >
+                Buy More
+              </Button>
             </Box>
           </Card>
 
@@ -363,8 +395,24 @@ const TripDashboard = () => {
                       <LinearProgress />
                     </Box>
                   )}
+
+                  <Button
+                    fullWidth
+                    variant="contained"
+                    color="primary"
+                    startIcon={<AIIcon />}
+                    sx={{ mt: 2 }}
+                    onClick={() => setCreditPurchaseOpen(true)}
+                  >
+                    Purchase More Credits
+                  </Button>
                 </CardContent>
               </Card>
+            </Grid>
+
+            {/* Credit History */}
+            <Grid item xs={12}>
+              <CreditHistory />
             </Grid>
 
             {/* Quick Actions */}
@@ -442,6 +490,12 @@ const TripDashboard = () => {
       <CreateTripDialog
         open={createDialogOpen}
         onClose={() => setCreateDialogOpen(false)}
+      />
+
+      {/* Credit Purchase Dialog */}
+      <CreditPurchaseDialog
+        open={creditPurchaseOpen}
+        onClose={() => setCreditPurchaseOpen(false)}
       />
 
       {/* Notification Menu */}

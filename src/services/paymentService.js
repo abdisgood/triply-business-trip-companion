@@ -220,6 +220,58 @@ class PaymentService {
     }
   }
 
+  // Get credit usage analytics
+  async getCreditUsageAnalytics(userId = null, days = 30) {
+    try {
+      const user = userId || auth.currentUser?.uid;
+      if (!user) throw new Error('User not authenticated');
+
+      const startDate = new Date();
+      startDate.setDate(startDate.getDate() - days);
+
+      const usageRef = collection(db, 'creditUsage');
+      const q = query(
+        usageRef,
+        where('userId', '==', user),
+        where('timestamp', '>=', startDate),
+        orderBy('timestamp', 'desc')
+      );
+
+      const snapshot = await getDocs(q);
+      const usageData = [];
+      const operationSummary = {};
+
+      snapshot.forEach(doc => {
+        const data = doc.data();
+        usageData.push({
+          id: doc.id,
+          ...data,
+          timestamp: data.timestamp?.toDate()
+        });
+
+        // Aggregate by operation
+        if (!operationSummary[data.operation]) {
+          operationSummary[data.operation] = {
+            count: 0,
+            totalCredits: 0
+          };
+        }
+        operationSummary[data.operation].count++;
+        operationSummary[data.operation].totalCredits += data.creditsUsed;
+      });
+
+      return {
+        usage: usageData,
+        summary: operationSummary,
+        totalCreditsUsed: usageData.reduce((sum, item) => sum + item.creditsUsed, 0),
+        period: `Last ${days} days`
+      };
+    } catch (error) {
+      console.error('Error getting credit usage analytics:', error);
+      throw error;
+    }
+  }
+
   // Deduct credits when AI features are used
   async deductCredits(userId, amount, operation) {
     try {
