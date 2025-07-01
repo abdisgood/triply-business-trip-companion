@@ -2,47 +2,95 @@ import React, { createContext, useContext, useState, useEffect, useMemo } from '
 import { createTheme, ThemeProvider as MuiThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 
-// Preset color palettes
+// Preset color palettes with gradients
 const colorPalettes = {
   default: {
     name: 'Business Red',
     primary: { main: '#d32f2f', light: '#ff6659', dark: '#9a0007' },
     secondary: { main: '#ffc107', light: '#fffd61', dark: '#c68400' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #d32f2f 0%, #ff6659 100%)',
+      secondary: 'linear-gradient(135deg, #ffc107 0%, #fffd61 100%)',
+      background: 'linear-gradient(135deg, #d32f2f 0%, #ffc107 100%)',
+      card: 'linear-gradient(145deg, rgba(211, 47, 47, 0.05) 0%, rgba(255, 193, 7, 0.05) 100%)',
+    },
   },
   ocean: {
     name: 'Ocean Blue',
     primary: { main: '#0288d1', light: '#5eb8ff', dark: '#005b9f' },
     secondary: { main: '#00acc1', light: '#5ddef4', dark: '#007c91' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #0288d1 0%, #5eb8ff 100%)',
+      secondary: 'linear-gradient(135deg, #00acc1 0%, #5ddef4 100%)',
+      background: 'linear-gradient(135deg, #0288d1 0%, #00acc1 100%)',
+      card: 'linear-gradient(145deg, rgba(2, 136, 209, 0.05) 0%, rgba(0, 172, 193, 0.05) 100%)',
+    },
   },
   forest: {
     name: 'Forest Green',
     primary: { main: '#2e7d32', light: '#60ad5e', dark: '#005005' },
     secondary: { main: '#81c784', light: '#b2fab4', dark: '#519657' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #2e7d32 0%, #60ad5e 100%)',
+      secondary: 'linear-gradient(135deg, #81c784 0%, #b2fab4 100%)',
+      background: 'linear-gradient(135deg, #2e7d32 0%, #81c784 100%)',
+      card: 'linear-gradient(145deg, rgba(46, 125, 50, 0.05) 0%, rgba(129, 199, 132, 0.05) 100%)',
+    },
   },
   sunset: {
     name: 'Sunset Orange',
     primary: { main: '#f57c00', light: '#ffad42', dark: '#bb4d00' },
     secondary: { main: '#ff6f00', light: '#ffa040', dark: '#c43e00' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #f57c00 0%, #ffad42 100%)',
+      secondary: 'linear-gradient(135deg, #ff6f00 0%, #ffa040 100%)',
+      background: 'linear-gradient(135deg, #f57c00 0%, #ff6f00 100%)',
+      card: 'linear-gradient(145deg, rgba(245, 124, 0, 0.05) 0%, rgba(255, 111, 0, 0.05) 100%)',
+    },
   },
   lavender: {
     name: 'Lavender Purple',
     primary: { main: '#7b1fa2', light: '#ae52d4', dark: '#4a0072' },
     secondary: { main: '#ba68c8', light: '#ee98fb', dark: '#883997' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #7b1fa2 0%, #ae52d4 100%)',
+      secondary: 'linear-gradient(135deg, #ba68c8 0%, #ee98fb 100%)',
+      background: 'linear-gradient(135deg, #7b1fa2 0%, #ba68c8 100%)',
+      card: 'linear-gradient(145deg, rgba(123, 31, 162, 0.05) 0%, rgba(186, 104, 200, 0.05) 100%)',
+    },
   },
   midnight: {
     name: 'Midnight Dark',
     primary: { main: '#263238', light: '#4f5b62', dark: '#000a12' },
     secondary: { main: '#37474f', light: '#62727b', dark: '#102027' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #263238 0%, #4f5b62 100%)',
+      secondary: 'linear-gradient(135deg, #37474f 0%, #62727b 100%)',
+      background: 'linear-gradient(135deg, #263238 0%, #37474f 100%)',
+      card: 'linear-gradient(145deg, rgba(38, 50, 56, 0.05) 0%, rgba(55, 71, 79, 0.05) 100%)',
+    },
   },
   coral: {
     name: 'Coral Pink',
     primary: { main: '#e91e63', light: '#ff6090', dark: '#b0003a' },
     secondary: { main: '#f06292', light: '#ff94c2', dark: '#ba2d65' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #e91e63 0%, #ff6090 100%)',
+      secondary: 'linear-gradient(135deg, #f06292 0%, #ff94c2 100%)',
+      background: 'linear-gradient(135deg, #e91e63 0%, #f06292 100%)',
+      card: 'linear-gradient(145deg, rgba(233, 30, 99, 0.05) 0%, rgba(240, 98, 146, 0.05) 100%)',
+    },
   },
   custom: {
     name: 'Custom',
     primary: { main: '#1976d2', light: '#42a5f5', dark: '#1565c0' },
     secondary: { main: '#dc004e', light: '#ff5b7c', dark: '#a00026' },
+    gradients: {
+      primary: 'linear-gradient(135deg, #1976d2 0%, #42a5f5 100%)',
+      secondary: 'linear-gradient(135deg, #dc004e 0%, #ff5b7c 100%)',
+      background: 'linear-gradient(135deg, #1976d2 0%, #dc004e 100%)',
+      card: 'linear-gradient(145deg, rgba(25, 118, 210, 0.05) 0%, rgba(220, 0, 78, 0.05) 100%)',
+    },
   },
 };
 
@@ -54,6 +102,16 @@ export const useTheme = () => {
     throw new Error('useTheme must be used within a ThemeProvider');
   }
   return context;
+};
+
+// Helper function to generate gradient from colors
+const generateGradient = (colors) => {
+  return {
+    primary: `linear-gradient(135deg, ${colors.primary.main} 0%, ${colors.primary.light} 100%)`,
+    secondary: `linear-gradient(135deg, ${colors.secondary.main} 0%, ${colors.secondary.light} 100%)`,
+    background: `linear-gradient(135deg, ${colors.primary.main} 0%, ${colors.secondary.main} 100%)`,
+    card: `linear-gradient(145deg, ${colors.primary.main}0D 0%, ${colors.secondary.main}0D 100%)`,
+  };
 };
 
 export const ThemeProvider = ({ children }) => {
@@ -79,6 +137,7 @@ export const ThemeProvider = ({ children }) => {
 
   const theme = useMemo(() => {
     const currentPalette = selectedPalette === 'custom' ? customColors : colorPalettes[selectedPalette];
+    const gradients = currentPalette.gradients || generateGradient(currentPalette);
     
     return createTheme({
       palette: {
@@ -134,6 +193,7 @@ export const ThemeProvider = ({ children }) => {
           800: '#1a202c',
           900: '#171923',
         },
+        gradients: gradients,
       },
       typography: {
         fontFamily: '"Inter", "Roboto", "Helvetica", "Arial", sans-serif',
@@ -181,12 +241,12 @@ export const ThemeProvider = ({ children }) => {
       },
       shadows: [
         'none',
-        '0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 2px rgba(0, 0, 0, 0.24)',
-        '0px 3px 6px rgba(0, 0, 0, 0.16), 0px 3px 6px rgba(0, 0, 0, 0.23)',
-        '0px 10px 20px rgba(0, 0, 0, 0.19), 0px 6px 6px rgba(0, 0, 0, 0.23)',
-        '0px 14px 28px rgba(0, 0, 0, 0.25), 0px 10px 10px rgba(0, 0, 0, 0.22)',
-        '0px 19px 38px rgba(0, 0, 0, 0.30), 0px 15px 12px rgba(0, 0, 0, 0.22)',
-        ...Array(19).fill('0px 19px 38px rgba(0, 0, 0, 0.30), 0px 15px 12px rgba(0, 0, 0, 0.22)'),
+        '0px 2px 8px rgba(0, 0, 0, 0.06)',
+        '0px 4px 16px rgba(0, 0, 0, 0.08)',
+        '0px 8px 24px rgba(0, 0, 0, 0.10)',
+        '0px 12px 32px rgba(0, 0, 0, 0.12)',
+        '0px 16px 40px rgba(0, 0, 0, 0.14)',
+        ...Array(19).fill('0px 24px 48px rgba(0, 0, 0, 0.16)'),
       ],
       components: {
         MuiCssBaseline: {
@@ -217,6 +277,8 @@ export const ThemeProvider = ({ children }) => {
               boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
               border: '1px solid rgba(0, 0, 0, 0.04)',
               transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
+              background: '#ffffff',
+              backgroundImage: gradients.card,
               '&:hover': {
                 boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.12)',
                 transform: 'translateY(-4px)',
@@ -242,6 +304,20 @@ export const ThemeProvider = ({ children }) => {
                 boxShadow: '0px 6px 20px rgba(0, 0, 0, 0.25)',
               },
             },
+            containedPrimary: {
+              background: gradients.primary,
+              '&:hover': {
+                background: gradients.primary,
+                filter: 'brightness(0.9)',
+              },
+            },
+            containedSecondary: {
+              background: gradients.secondary,
+              '&:hover': {
+                background: gradients.secondary,
+                filter: 'brightness(0.9)',
+              },
+            },
           },
         },
         MuiTextField: {
@@ -252,7 +328,7 @@ export const ThemeProvider = ({ children }) => {
                 transition: 'all 0.2s ease-in-out',
                 '&:hover': {
                   '& .MuiOutlinedInput-notchedOutline': {
-                    borderColor: '#cbd5e0',
+                    borderColor: currentPalette.primary.light,
                   },
                 },
                 '&.Mui-focused': {
@@ -270,18 +346,33 @@ export const ThemeProvider = ({ children }) => {
               borderRadius: 8,
               fontWeight: 500,
             },
+            colorPrimary: {
+              background: `${currentPalette.primary.main}15`,
+              color: currentPalette.primary.main,
+              '&:hover': {
+                background: `${currentPalette.primary.main}25`,
+              },
+            },
+            colorSecondary: {
+              background: `${currentPalette.secondary.main}15`,
+              color: currentPalette.secondary.main,
+              '&:hover': {
+                background: `${currentPalette.secondary.main}25`,
+              },
+            },
           },
         },
         MuiPaper: {
           styleOverrides: {
             root: {
               borderRadius: 12,
+              backgroundImage: 'none',
             },
             elevation1: {
-              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
+              boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.06)',
             },
             elevation4: {
-              boxShadow: '0px 8px 30px rgba(0, 0, 0, 0.12)',
+              boxShadow: '0px 4px 16px rgba(0, 0, 0, 0.08)',
             },
           },
         },
@@ -296,7 +387,40 @@ export const ThemeProvider = ({ children }) => {
         MuiAppBar: {
           styleOverrides: {
             root: {
-              boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.08)',
+              boxShadow: '0px 2px 8px rgba(0, 0, 0, 0.08)',
+              background: gradients.primary,
+            },
+          },
+        },
+        MuiFab: {
+          styleOverrides: {
+            primary: {
+              background: gradients.primary,
+              '&:hover': {
+                background: gradients.primary,
+                filter: 'brightness(0.9)',
+              },
+            },
+            secondary: {
+              background: gradients.secondary,
+              '&:hover': {
+                background: gradients.secondary,
+                filter: 'brightness(0.9)',
+              },
+            },
+          },
+        },
+        MuiLinearProgress: {
+          styleOverrides: {
+            root: {
+              borderRadius: 4,
+              height: 6,
+            },
+            colorPrimary: {
+              backgroundColor: `${currentPalette.primary.main}20`,
+            },
+            barColorPrimary: {
+              background: gradients.primary,
             },
           },
         },
@@ -309,7 +433,12 @@ export const ThemeProvider = ({ children }) => {
   };
 
   const updateCustomColors = (colors) => {
-    setCustomColors(colors);
+    // Generate gradients for custom colors
+    const updatedCustom = {
+      ...colors,
+      gradients: generateGradient(colors),
+    };
+    setCustomColors(updatedCustom);
     if (selectedPalette === 'custom') {
       // Force theme update
       setSelectedPalette('custom');

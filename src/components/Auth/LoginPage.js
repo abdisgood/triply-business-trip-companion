@@ -58,7 +58,7 @@ const LoginPage = () => {
     <Box
       sx={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #d32f2f 0%, #ffc107 100%)',
+        background: (theme) => theme.palette.gradients?.background || 'linear-gradient(135deg, #d32f2f 0%, #ffc107 100%)',
         display: 'flex',
         alignItems: 'center',
         py: 4,
@@ -159,11 +159,16 @@ const LoginPage = () => {
                 }}
               >
                 <Box sx={{ mb: 3 }}>
-                  <BusinessIcon
+                  <Box
                     sx={{
-                      fontSize: 60,
-                      color: 'primary.main',
+                      width: 60,
+                      height: 60,
+                      margin: '0 auto',
                       mb: 2,
+                      backgroundImage: 'url(/favicon.svg)',
+                      backgroundSize: 'contain',
+                      backgroundRepeat: 'no-repeat',
+                      backgroundPosition: 'center',
                     }}
                   />
                   <Typography variant="h4" gutterBottom>
@@ -197,9 +202,8 @@ const LoginPage = () => {
                     py: 1.5,
                     fontSize: '1.1rem',
                     fontWeight: 600,
-                    background: 'linear-gradient(45deg, #4285f4 30%, #34a853 90%)',
                     '&:hover': {
-                      background: 'linear-gradient(45deg, #3367d6 30%, #2d8e47 90%)',
+                      transform: 'translateY(-1px)',
                     },
                   }}
                 >

@@ -45,6 +45,7 @@ const ColorPaletteDialog = ({ open, onClose }) => {
   const renderColorPreview = (palette, key) => {
     const isSelected = tempSelection === key;
     const colors = key === 'custom' ? tempCustomColors : palette;
+    const gradients = colors.gradients || generateGradient(colors);
 
     return (
       <Paper
@@ -55,6 +56,7 @@ const ColorPaletteDialog = ({ open, onClose }) => {
           border: isSelected ? '2px solid' : '2px solid transparent',
           borderColor: isSelected ? 'primary.main' : 'transparent',
           transition: 'all 0.3s',
+          background: isSelected ? gradients.card : 'transparent',
           '&:hover': {
             elevation: 4,
             transform: 'translateY(-2px)',
@@ -74,53 +76,41 @@ const ColorPaletteDialog = ({ open, onClose }) => {
           </Typography>
         </Box>
         <Box sx={{ display: 'flex', gap: 0.5 }}>
-          <Tooltip title="Primary">
+          <Tooltip title="Primary Gradient">
             <Box
               sx={{
-                width: 40,
+                width: 70,
                 height: 40,
-                bgcolor: colors.primary.main,
+                background: gradients.primary,
                 borderRadius: 1,
-                border: '1px solid rgba(0,0,0,0.1)',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
               }}
             />
           </Tooltip>
-          <Tooltip title="Primary Light">
+          <Tooltip title="Secondary Gradient">
             <Box
               sx={{
-                width: 30,
+                width: 70,
                 height: 40,
-                bgcolor: colors.primary.light,
+                background: gradients.secondary,
                 borderRadius: 1,
-                border: '1px solid rgba(0,0,0,0.1)',
-              }}
-            />
-          </Tooltip>
-          <Tooltip title="Secondary">
-            <Box
-              sx={{
-                width: 40,
-                height: 40,
-                bgcolor: colors.secondary.main,
-                borderRadius: 1,
-                border: '1px solid rgba(0,0,0,0.1)',
-              }}
-            />
-          </Tooltip>
-          <Tooltip title="Secondary Light">
-            <Box
-              sx={{
-                width: 30,
-                height: 40,
-                bgcolor: colors.secondary.light,
-                borderRadius: 1,
-                border: '1px solid rgba(0,0,0,0.1)',
+                boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
               }}
             />
           </Tooltip>
         </Box>
       </Paper>
     );
+  };
+
+  // Helper function to generate gradient from colors
+  const generateGradient = (colors) => {
+    return {
+      primary: `linear-gradient(135deg, ${colors.primary.main} 0%, ${colors.primary.light} 100%)`,
+      secondary: `linear-gradient(135deg, ${colors.secondary.main} 0%, ${colors.secondary.light} 100%)`,
+      background: `linear-gradient(135deg, ${colors.primary.main} 0%, ${colors.secondary.main} 100%)`,
+      card: `linear-gradient(145deg, ${colors.primary.main}0D 0%, ${colors.secondary.main}0D 100%)`,
+    };
   };
 
   return (
