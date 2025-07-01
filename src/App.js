@@ -14,6 +14,7 @@ import LoadingScreen from './components/Layout/LoadingScreen';
 import Navbar from './components/Layout/Navbar';
 import TripDashboard from './components/TripDashboard';
 import CompanyList from './components/CompanyList';
+import TripDetailView from './components/TripDetailView';
 
 // Protected Route component
 const ProtectedRoute = ({ children }) => {
@@ -61,6 +62,15 @@ const AppContent = () => {
             <ProtectedRoute>
               <Navbar />
               <TripDashboard />
+            </ProtectedRoute>
+          } 
+        />
+        <Route 
+          path="/trips/:tripId" 
+          element={
+            <ProtectedRoute>
+              <Navbar />
+              <TripDetailView />
             </ProtectedRoute>
           } 
         />
