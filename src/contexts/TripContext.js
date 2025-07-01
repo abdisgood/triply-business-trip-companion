@@ -192,6 +192,17 @@ export const TripProvider = ({ children }) => {
     }
   };
 
+  // Get single trip
+  const getTrip = async (tripId) => {
+    try {
+      const trip = await tripService.getTrip(tripId);
+      return trip;
+    } catch (error) {
+      dispatch({ type: 'SET_ERROR', payload: error.message });
+      throw error;
+    }
+  };
+
   // Set current trip
   const setCurrentTrip = async (tripId) => {
     try {
@@ -359,6 +370,7 @@ export const TripProvider = ({ children }) => {
     createTrip,
     updateTrip,
     deleteTrip,
+    getTrip,
     setCurrentTrip,
     loadTrips,
     

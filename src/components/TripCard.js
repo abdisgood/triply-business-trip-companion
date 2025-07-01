@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   ListItem,
   ListItemButton,
@@ -25,6 +26,7 @@ import {
 import { format, differenceInDays } from 'date-fns';
 
 const TripCard = ({ trip, onSelect, isSelected = false }) => {
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState(null);
 
   const handleMenuClick = (event) => {
@@ -34,6 +36,15 @@ const TripCard = ({ trip, onSelect, isSelected = false }) => {
 
   const handleMenuClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleViewDetails = () => {
+    handleMenuClose();
+    navigate(`/trips/${trip.id}`);
+  };
+
+  const handleTripClick = () => {
+    navigate(`/trips/${trip.id}`);
   };
 
   const getStatusColor = (status) => {
@@ -91,7 +102,7 @@ const TripCard = ({ trip, onSelect, isSelected = false }) => {
     <>
       <ListItem disablePadding divider>
         <ListItemButton
-          onClick={() => onSelect(trip.id)}
+          onClick={handleTripClick}
           selected={isSelected}
           sx={{ py: 2 }}
         >
@@ -210,10 +221,7 @@ const TripCard = ({ trip, onSelect, isSelected = false }) => {
         open={Boolean(anchorEl)}
         onClose={handleMenuClose}
       >
-        <MenuItem onClick={() => {
-          handleMenuClose();
-          // Navigate to trip details
-        }}>
+        <MenuItem onClick={handleViewDetails}>
           View Details
         </MenuItem>
         <MenuItem onClick={() => {

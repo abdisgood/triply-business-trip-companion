@@ -29,7 +29,7 @@ import {
   Business as BusinessIcon,
   Receipt as ReceiptIcon,
   CalendarToday as CalendarIcon,
-  CheckCircle as CheckIcon
+  CheckCircle as CheckCircleIcon
 } from '@mui/icons-material';
 import { format } from 'date-fns';
 import expenseService from '../services/expenseService';
@@ -281,6 +281,13 @@ const TripExport = ({ trip, open, onClose }) => {
       [option]: !exportOptions[option]
     });
   };
+
+  const renderSuccess = () => (
+    <Box sx={{ textAlign: 'center', py: 3 }}>
+      <CheckCircleIcon sx={{ fontSize: 64, color: 'success.main', mb: 2 }} />
+      <Typography variant="h6">Export successful!</Typography>
+    </Box>
+  );
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>

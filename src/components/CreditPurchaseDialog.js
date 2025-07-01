@@ -19,7 +19,9 @@ import {
   Psychology as AIIcon,
   Star as StarIcon,
   CheckCircle as CheckIcon,
-  Payment as PaymentIcon
+  Payment as PaymentIcon,
+  Close as CloseIcon,
+  CreditCard as CreditCardIcon
 } from '@mui/icons-material';
 import { PayPalScriptProvider, PayPalButtons } from '@paypal/react-paypal-js';
 import paymentService from '../services/paymentService';
