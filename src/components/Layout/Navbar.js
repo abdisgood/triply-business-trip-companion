@@ -68,16 +68,6 @@ const Navbar = () => {
           >
             Triply
           </Typography>
-          <Chip
-            label="Business Trip Companion"
-            size="small"
-            sx={{
-              ml: 2,
-              backgroundColor: 'rgba(255, 255, 255, 0.15)',
-              color: 'white',
-              fontWeight: 500,
-            }}
-          />
         </Box>
 
         {user && (
